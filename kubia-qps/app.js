@@ -23,7 +23,7 @@ var handler = function(request, response) {
 
   if (request.url == "/metrics") {
     response.writeHead(200);
-    response.end("# TYPE qps gauge\nqps " + avgQps + "\n");
+    response.end("# HELP qps query per second\n# TYPE qps gauge\nqps " + avgQps + "\n");
     console.log("Received request for /qps: " + avgQps);
     return;
   }
