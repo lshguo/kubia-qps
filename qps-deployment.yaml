@@ -9,33 +9,9 @@ spec:
       name: kubia
       labels:
         app: kubia
-      annotations:
-        pod.beta.kubernetes.io/init-containers: '[
-            {
-                "name": "setup",
-                "image": "busybox",
-                "imagePullPolicy": "IfNotPresent",
-                "command": ["sh", "-c", "echo \"{\\\"endpoint\\\": \\\"http://$POD_IP:8080/metrics\\\"}\" > /etc/custom-metrics/definition.json"],
-                "env": [{
-                  "name": "POD_IP",
-                  "valueFrom": {
-                    "fieldRef": {
-                      "apiVersion": "v1",
-                      "fieldPath": "status.podIP"
-                    }
-                  }
-                }],
-                "volumeMounts": [
-                    {
-                        "name": "config",
-                        "mountPath": "/etc/custom-metrics"
-                    }
-                ]
-            }
-        ]'
     spec:
       containers:
-      - image: luksa/kubia:qps
+      - image: registry.alauda.cn/guolsh/kubia-qps:v1
         name: nodejs
         ports:
           - containerPort: 8080
